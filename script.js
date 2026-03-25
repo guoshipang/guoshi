@@ -50,6 +50,14 @@ if (navMenuButton && navMobileMenu) {
 }
 
 // 活动详情数据（文字部分，图片轮播暂用占位说明）
+function toThumbPath(src) {
+  if (!src || typeof src !== "string") return src;
+  if (src.startsWith("./thumbs/")) return src;
+  if (src.startsWith("./image/")) return src.replace("./image/", "./thumbs/image/");
+  if (src.startsWith("./images/")) return src.replace("./images/", "./thumbs/images/");
+  return src;
+}
+
 const activityData = {
   jingchuan: {
     companyName: "北京鲸川文化传播有限公司",
@@ -350,7 +358,7 @@ function openActivityModal(key) {
               ${item.images
                 .map(
                   (src, index) =>
-                    `<img src="${src}" alt="${data.companyName} 活动照片 ${index + 1}" class="${
+                    `<img src="${toThumbPath(src)}" data-full="${src}" alt="${data.companyName} 活动照片 ${index + 1}" class="${
                       index === 0 ? "is-active" : ""
                     }" />`
                 )
@@ -412,6 +420,18 @@ document
 // 影像作品筛选
 const filterButtons = document.querySelectorAll(".filter-btn");
 const photoCards = document.querySelectorAll(".photo-card");
+
+// 缩略图：列表用 thumbs 加速；点开大图使用 data-full 原图保证清晰
+photoCards.forEach((card) => {
+  const img = card.querySelector("img");
+  if (!img) return;
+  const rel = img.getAttribute("src");
+  if (!rel) return;
+  img.dataset.full = rel;
+  img.decoding = "async";
+  img.loading = "lazy";
+  img.src = toThumbPath(rel);
+});
 
 filterButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -479,7 +499,7 @@ function openPhotoLightboxBySrcs(srcs, index) {
 
 function openPhotoLightboxFromElements(imgEls, index) {
   const srcs = Array.from(imgEls || [])
-    .map((el) => el && el.src)
+    .map((el) => (el && (el.dataset && el.dataset.full)) || (el && el.src))
     .filter(Boolean);
   openPhotoLightboxBySrcs(srcs, index);
 }
@@ -550,13 +570,13 @@ photoCards.forEach((card) => {
   card.addEventListener("click", () => {
     const clickedImg = card.querySelector("img");
     const clickedSrc = clickedImg
-      ? clickedImg.src
+      ? clickedImg.dataset.full || clickedImg.src
       : card.getAttribute("data-photo-src");
 
     const allSrcs = Array.from(photoCards)
       .map((c) => {
         const img = c.querySelector("img");
-        return img ? img.src : c.getAttribute("data-photo-src");
+        return img ? img.dataset.full || img.src : c.getAttribute("data-photo-src");
       })
       .filter(Boolean);
 

@@ -384,7 +384,7 @@ main {
 .piece-1 {
   top: 0;
   left: 0;
-  background-image: url("./image/主页-四张照片右上扇形.jpg");
+  background-image: url("./thumbs/image/主页-四张照片右上扇形.jpg");
   background-position: center top;
   transform-origin: top left;
   /* 微量重叠 + 5px 分界线羽化（仅初始状态生效） */
@@ -430,7 +430,7 @@ main {
 .piece-2 {
   top: 0;
   right: 0;
-  background-image: url("./image/主页-四张照片右下扇形.jpg");
+  background-image: url("./thumbs/image/主页-四张照片右下扇形.jpg");
   transform-origin: top right;
   /* 微量重叠 + 5px 分界线羽化（仅初始状态生效） */
   width: calc(50% + var(--feather));
@@ -473,7 +473,7 @@ main {
 .piece-3 {
   bottom: 0;
   left: 0;
-  background-image: url("./image/主页-四张照片左下扇形.jpg");
+  background-image: url("./thumbs/image/主页-四张照片左下扇形.jpg");
   transform: none;
   transform-origin: bottom left;
   /* 微量重叠 + 5px 分界线羽化（仅初始状态生效） */
@@ -499,7 +499,7 @@ main {
 .piece-4 {
   bottom: 0;
   right: 0;
-  background-image: url("./image/主页-四张照片左上扇形.jpg");
+  background-image: url("./thumbs/image/主页-四张照片左上扇形.jpg");
   transform: none;
   transform-origin: bottom right;
   /* 微量重叠 + 5px 分界线羽化（仅初始状态生效） */
