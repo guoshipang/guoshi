@@ -221,6 +221,7 @@ main {
 }
 
 .hero-hello {
+  font-family: "Switzer", "Noto Sans SC", system-ui, sans-serif;
   font-size: 60px;
   font-weight: 900;
   letter-spacing: 4px;
